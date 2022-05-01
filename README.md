@@ -12,3 +12,7 @@ testing purposes.</p>
 <p align="justify">Tron (TRX) staking works as follows. First step is to freeze an amount of Tron. 
 Next one has to identify an so called Superrepresentive (SR). Afterwards on votes
 for this SR. That's it in principle.</p>
+
+<h2>Donation</h2>
+
+<div class="snippet-clipboard-content position-relative overflow-auto" data-snippet-clipboard-copy-content="TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7"><pre><code>TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7</code></pre></div>
