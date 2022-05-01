@@ -9,6 +9,10 @@ Accordingly, I was looking for a way to do everything necessary from the command
 
 <p align="justify">Tron (TRX) staking works as follows. First step is to freeze an amount of Tron. Next one has to identify an so called Superrepresentive (SR). Afterwards on votes for this SR. That's it in principle.</p>
 
+## Implementation
+
+<p align="justify">In the first step, I already managed to query the balance in the blockchain. Based on this, I will see how I can realise transactions, freezing and unfreezing of an amount of Tron and the voting.</p>
+
 <h2>Donation</h2>
 
 <div class="snippet-clipboard-content position-relative overflow-auto" data-snippet-clipboard-copy-content="TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7"><pre><code>TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7</code></pre></div>
