@@ -19,13 +19,13 @@ Proof of concept comming soon.
 from tronapi import Tron
 
 # Set address (public key) to send Tron to.
-destination = 'destination_address'
+destination = '<destination_address>'
 
 # Set address (public key) to send Tron from.
-source = 'source_address'
+source = '<source_address>'
 
 # Set private key of address to send Tron from.
-private_key = 'private_key'
+private_key = '<private_key>'
 
 # Set amount to send.
 amount = 1
