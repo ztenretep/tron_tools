@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Vote Tron for staking.
+"""Vote for Tron Superrepresentive for staking.
 
 Private key as well as public key of sender are defined via class attributes. Receiver 
 and amount are method arguments.
