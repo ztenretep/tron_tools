@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""Send Tron from source to destination.
-
-This code has to be tested. It is written based on the source code of tronapi.
+"""Freeze Tron for staking.
 
 Function freeze_balance of class trx (Trx -> mapped to trx) is calling function
 freeze_balance of class transaction_builder (TransactionBuilder -> mapped to 
@@ -9,15 +7,10 @@ transaction_builder).
 
 Private key as well as public key of sender are defined via class attributes. Receiver 
 and amount are method arguments.
-
-Proof of concept comming soon.
 """
 
 # Import the Python module.
 from tronapi import Tron
-
-# Set address (public key) to send Tron to.
-destination = '<destination_address>'
 
 # Set address (public key) to send Tron from.
 source = '<source_address>'
