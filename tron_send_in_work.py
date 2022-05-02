@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Send Tron from source to destination.
 
-This code has to be tested. It is written based on the source code of tronapi.
-
 Function send_transaction of class trx (Trx -> mapped to trx) is calling function
 send_transaction of class transaction_builder (TransactionBuilder -> mapped to 
 transaction_builder).
@@ -11,8 +9,6 @@ Signing and broadcasting is done from within send_transaction (TransactionBuilde
 
 Private key as well as public key of sender are defined via class attributes. Receiver 
 and amount are method arguments.
-
-Proof of concept comming soon.
 """
 
 # Import the Python module.
@@ -28,7 +24,7 @@ source = '<source_address>'
 private_key = '<private_key>'
 
 # Set TRX amount to send.
-amount = 1.0
+amount = 1.0 # Must be of type float!
 
 # Instantiate Tron.
 tron = Tron()
@@ -39,12 +35,8 @@ tron.private_key = private_key
 # Assign public key to Tron() here.
 tron.default_address = source
 
-# Prepare for further args for testing.
-# Destination can be hand over as dict {'from': destination}
-args = (None)
-
 # Prepare transaction.
-send = tron.trx.send_transaction(destination, amount, *args)
+send = tron.trx.send_transaction(destination, amount)
 
 # Print response.
 print(send)
