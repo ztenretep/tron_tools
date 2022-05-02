@@ -27,8 +27,8 @@ source = '<source_address>'
 # Set private key of address to send Tron from.
 private_key = '<private_key>'
 
-# Set amount to send.
-amount = 1
+# Set TRX amount to send.
+amount = 1.0
 
 # Instantiate Tron.
 tron = Tron()
@@ -39,8 +39,12 @@ tron.private_key = private_key
 # Assign public key to Tron() here.
 tron.default_address = source
 
+# Prepare for further args for testing.
+# Destination can be hand over as dict {'from': destination}
+args = (None)
+
 # Prepare transaction.
-send = tron.trx.send_transaction(destination, amount)
+send = tron.trx.send_transaction(destination, amount, *args)
 
 # Print response.
 print(send)
