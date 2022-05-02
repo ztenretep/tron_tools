@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 """Vote for a Tron Super Representative.
 
+If e.g. 100 Tron are frozen, then the corresponding votes are 100.
+Number of votes is in this case also 100.
+
 Private key as well as public key are defined via class attributes.
+
+Super Representatives can be found at https://tronscan.org/. Signed
+in it can be checked if staking as well as voting is working.
 """
 
 # Import the Python module.
