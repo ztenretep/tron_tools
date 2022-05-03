@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Request the Tron balance of a given Tron address from the blockchain.
+
+Balance is returned from the Mainnet in SUN. 1000000 SUN is equal to 1 TRX.
 """
 # pylint: disable=invalid-name
 # pylint: disable=no-member
