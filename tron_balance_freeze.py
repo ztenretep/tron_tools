@@ -41,7 +41,7 @@ tron.private_key = private_key
 tron.default_address = source
 
 # Freeze the amount of money.
-freeze = tron.trx.freeze_balance(amount, duration, 'BANDWIDTH', account)
+freeze = tron.trx.freeze_balance(amount, duration, resource, account)
 
 # Print response.
 print(freeze)
