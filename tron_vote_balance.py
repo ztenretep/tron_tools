@@ -20,7 +20,7 @@ public_key = '<public_key>'
 private_key = '<private_key>'
 
 # Set the Super Representative.
-SR = "<superrepresentative>"
+SR = '<super_representative>'
 
 # Create a new instance of class Tron().
 tron = Tron()
