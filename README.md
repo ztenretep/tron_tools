@@ -4,7 +4,7 @@
 
 <p align="justify">I used a wallet that allowed me to do Tron (TRX) staking in the past. Some time ago, the wallet provider disabled this function.
 Accordingly, I was looking for a way to do everything necessary from the command line on myself. With 
-the <span style="background-color: #FFFF00">tronapi</span> from PyPi I found a Python package
+the <span style="background-color: #808080">tronapi</span> from PyPi I found a Python package
 that seems to be useful for testing purposes and more.</p>
 
 ## Tron (TRX) Staking
