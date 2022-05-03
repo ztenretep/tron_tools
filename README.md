@@ -19,7 +19,7 @@ Super Representative (SR). Afterwards one votes for this SR. That's it in princi
 - <p align="justify">Creating Tron accounts.</p>
 - <p align="justify">Requesting balance from blockchain.</>
 - <p align="justify">Freezing balance for staking.</>
-- <p align="justify">Voting for Super Representive.</>
+- <p align="justify">Voting for Super Representative.</>
 - <p align="justify">Claiming rewards from blockchain.</>
 - <p align="justify">Requesting list of Super Representatives and partners.</>
 - <p align="justify">Requesting account informations.</p>
