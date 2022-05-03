@@ -3,7 +3,7 @@
 # Motivation
 
 <p align="justify">I used a wallet that allowed me to do Tron (TRX) staking in the past. Some time ago, the wallet provider disabled this function.
-Accordingly, I was looking for a way to do everything necessary from the command line on  myself. With the tronapi from PyPi I found a Python package
+Accordingly, I was looking for a way to do everything necessary from the command line on myself. With the ```tronapi``` from PyPi I found a Python package
 that seems to be useful for testing purposes and more.</p>
 
 ## Tron (TRX) Staking
@@ -13,6 +13,8 @@ Super Representative (SR). Afterwards one votes for this SR. That's it in princi
 
 ## Implemented
 
+<p align="justify">Implemented so far is:</p>
+
 - <p align="justify">Creating Tron accounts.</p>
 - <p align="justify">Requesting balance from blockchain.</>
 - <p align="justify">Freezing balance for staking.</>
@@ -20,11 +22,6 @@ Super Representative (SR). Afterwards one votes for this SR. That's it in princi
 - <p align="justify">Claiming rewards from blockchain.</>
 - <p align="justify">Requesting list of Super Representatives and partners.</>
 - <p align="justify">Requesting account informations.</p>
-
-- 
-   +
-
-      -
 
 ## To-Do
 
