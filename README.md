@@ -11,12 +11,20 @@ that seems to be useful for testing purposes and more.</p>
 <p align="justify">Tron (TRX) staking works as follows. First step is to freeze an amount of Tron. Next one has to identify an so called 
 Super Representative (SR). Afterwards one votes for this SR. That's it in principle. Rewards can be claimed on a daily basis.</p>
 
-## Implementation
+## Implemented
 
--- <p align="justify"></>
-- In the first step, I already managed to query 
-- the balance in the blockchain. Based on this, I will see how I can realise
- transactions, freezing and unfreezing of an amount of Tron and the voting.</p>
+- <p align="justify">Creating Tron accounts.</p>
+- <p align="justify">Requesting balance from blockchain.</>
+- <p align="justify">Freezing balance for staking.</>
+- <p align="justify">Voting for Super Representive.</>
+- <p align="justify">Claiming rewards from blockchain.</>
+- <p align="justify">Requesting list of Super Representatives and partners.</>
+- <p align="justify">Requesting account informations.</p>
+
+- 
+   +
+
+      -
 
 ## To-Do
 
