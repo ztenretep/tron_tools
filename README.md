@@ -13,7 +13,7 @@ Super Representative (SR). Afterwards one votes for this SR. That's it in princi
 
 ## Implementation
 
-<p align="justify">
+-- <p align="justify"></>
 - In the first step, I already managed to query 
 - the balance in the blockchain. Based on this, I will see how I can realise
  transactions, freezing and unfreezing of an amount of Tron and the voting.</p>
