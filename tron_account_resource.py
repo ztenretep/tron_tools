@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Get account resource.
 """
+# pylint: disable=invalid-name
+# pylint: disable=no-member
 
 # Import the standard Python module.
 import json
