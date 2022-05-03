@@ -12,7 +12,7 @@ Private key as well as public key are defined via class attributes.
 Super Representatives can be found at https://tronscan.org/. Signed
 in it can be checked if staking as well as voting is working.
 
-To be chnaged by the user:
+To be changed by the user:
     '<public_key>'           : str
     '<private_key>'          : str
     '<super_representative>' : str
