@@ -49,7 +49,7 @@ print(HEADER)
 
 # Print timestamp.
 dt = now.strftime("%Y-%m-%d %H:%M:%S")
-print("Timestamp: ", dt, "\n")
+print("Timestamp:", dt, "\n")
 
 # Extract default address from dict.
 default_address = account_info_dict["address"]
