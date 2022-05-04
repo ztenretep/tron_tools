@@ -26,6 +26,9 @@ TRON (TRX) ACCOUNT OVERVIEW
 ==============================================================
 """.strip()
 
+# Get current date.
+now = datetime.today()
+
 # Instantiate Tron.
 tron = Tron()
 
@@ -42,7 +45,11 @@ account_info_dict = tron.trx.get_account()
 os.system('clear')
 
 # Print header
-print(HEADER, "\n")
+print(HEADER)
+
+# Print timestamp.
+dt = now.strftime("%Y-%m-%d %H:%M:%S")
+print("Timestamp: ", dt, "\n")
 
 # Extract default address from dict.
 default_address = account_info_dict["address"]
