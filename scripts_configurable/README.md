@@ -6,14 +6,14 @@ process.</p>
 
 # Freeze Balance
 
-The data is read from the configuration file. Then a control output is made to the screen. Then the data is transferred to the blockchain. Finally,
-the result is displayed.
+<p align="justify">The data is read from the configuration file. Then a control output is made to the screen. Then the data is transferred to the blockchain. Finally,
+the result is displayed.</p>
 
-The data in the configuration file must be adapted to the needs of the user.
+<p align="justify">The data in the configuration file must be adapted to the needs of the user.</p>
 
 # Vote Super Representative
 
-The data is read from the configuration file. Then a control output is made to the screen. Then the data is transferred to the blockchain. Finally,
-the result is displayed.
+<p align="justify">The data is read from the configuration file. Then a control output is made to the screen. Then the data is transferred to the blockchain. Finally,
+the result is displayed.</p>
 
-The data in the configuration file must be adapted to the needs of the user.
+<p align="justify">The data in the configuration file must be adapted to the needs of the user.</p>
