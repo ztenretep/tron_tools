@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Tron account overview.
 
+Limitation: Output is limited to one Super Representative.
+
 Use your own data for:
     <private_key>  and
     <public key>
@@ -33,28 +35,40 @@ tron.private_key = private_key
 # Assign public key to Tron() here.
 tron.default_address = public_key
 
+# Get account info dictionary.
+account_info_dict = tron.trx.get_account()
+
 # Clear screen.
 os.system('clear')
 
 # Print header
 print(HEADER, "\n")
 
-# Get account info dictionary.
-account_info_dict = tron.trx.get_account()
-
-# Analyse account info.
+# Extract default address from dict.
 default_address = account_info_dict["address"]
 default_address = tron.address.from_hex(default_address).decode("utf-8")
+
+# Extract balance from dict.
 balance = account_info_dict["balance"]/1000000
+
+# Extract votes from dict.
 votes = account_info_dict["votes"][0]["vote_count"]
+
+# Extract Super Representative from dict.
 vote_address = account_info_dict["votes"][0]["vote_address"]
 vote_address = tron.address.from_hex(vote_address).decode("utf-8")
+
+# Extract frozen bandwidth.
 frozen = int(account_info_dict["frozen"][0]["frozen_balance"]/1000000)
 timestamp_frozen = int(account_info_dict["frozen"][0]["expire_time"]/1000)
 timestamp_frozen = datetime.fromtimestamp(timestamp_frozen)
+
+# Extract frozen energy.
 resource = int(account_info_dict["account_resource"]["frozen_balance_for_energy"]["frozen_balance"]/1000000)
 timestamp_energy = int(account_info_dict["account_resource"]["frozen_balance_for_energy"]["expire_time"]/1000)
 timestamp_energy = datetime.fromtimestamp(timestamp_energy)
+
+# Calculate some values.
 stakes = frozen + resource
 available_votes = stakes - votes
 balance_total = balance + stakes
