@@ -1,8 +1,8 @@
 # Foreword
 
-To automate the staking process a bit, I thought about how to do it from one script. I have defined a heredoc within the script that is used as
+<p align="justify>To automate the staking process a bit, I thought about how to do it from one script. I have defined a heredoc within the script that is used as
 a template for a configuration file. If the configuration does not exist, it is written. A single configuration file covers the complete staking
-process.
+process.</p>
 
 # Freeze Balance
 
