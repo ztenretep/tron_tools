@@ -1,6 +1,9 @@
 
 #!/usr/bin/python3
 """Check Private key generation of Bip39 and Bip44 against tronapi methods.
+
+I used tronapi's approach to cross-check my calculation method. With the addition of
+the possibility to use mnemonics fro the seed generation, this became necessary.
 """
 # pylint: disable=invalid-name
 # pylint: disable=line-too-long
@@ -85,7 +88,7 @@ public_key_base58 = ('04' + str(public_key)[2:]).upper()
 public_key_hex = ('41' + public_key.to_address()[2:]).upper()
 
 # Create base 58 address.
-base58_addr = base58.b58encode_check(bytes.fromhex('41' + public_key.to_address()[2:])).decode("utf-8")
+base58_addr = base58.b58encode_check(bytes.fromhex(public_key_hex)).decode("utf-8")
 
 # Print result to screen.
 print(fmt_str.format("Private Key:", private_key))
