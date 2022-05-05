@@ -9,7 +9,7 @@ and amount are method arguments.
 from tronapi import Tron
 
 # Set address (public key) to send Tron from.
-source = '<public_key>'
+public_key = '<public_key>'
 
 # Set private key of address to send Tron from.
 private_key = '<private_key>'
@@ -21,9 +21,10 @@ tron = Tron()
 tron.private_key = private_key
 
 # Assign public key to Tron() here.
-tron.default_address = source
+# tron.default_address = public_key
 
-withdraw = tron.transaction_builder.withdraw_block_rewards(source)
+# Build transaction for withdrawing block rewards.
+withdraw = tron.transaction_builder.withdraw_block_rewards(public_key)
 
 # In trx is no method for withdraw_block_rewards.
 withdraw = tron.trx.sign(withdraw)
