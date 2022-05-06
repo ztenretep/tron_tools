@@ -43,19 +43,19 @@ print("\n*** Create private key, public key and Tron address using Bip39 and Bip
 # Generate with automatic language detection and passphrase (empty)
 seed_bytes = Bip39SeedGenerator(mnemonic).Generate()
 
-# Get Bip44 object.
+# Create Bip44 Tron object.
 bip44_tron = Bip44.FromSeed(seed_bytes, Bip44Coins.TRON)
 
-# Create private key.
+# Create a private key in hex and upper case.
 private_key = bip44_tron.PrivateKey().Raw().ToHex().upper()
 
-# Create public key.
+# Create a public key in upper case.
 public_key = str(bip44_tron.PublicKey().RawUncompressed()).upper()
 
 # Create Base58 address.
 base58_addr = bip44_tron.PublicKey().ToAddress()
 
-# Create Hex  address.
+# Create a Hex address in hex and upper case.
 hex_addr = base58.b58decode_check(base58_addr).hex().upper()
 
 # Print result to screen.
