@@ -2,7 +2,7 @@
 
 URL="https://api.trongrid.io/walletsolidity/getaccount"
 
-ADDRESS="<address_in_hex>"
+ADDRESS="<tron_address_in_hex>"
 
 PAYLOAD="{ \"address\": \"${ADDRESS}\" }"
 
