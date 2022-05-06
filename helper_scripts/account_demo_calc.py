@@ -87,7 +87,7 @@ public_key = key.public_key
 public_key_base58 = ('04' + str(public_key)[2:]).upper()
 public_key_hex = ('41' + public_key.to_address()[2:]).upper()
 
-# Create base 58 address.
+# Create a Base58 address.
 base58_addr = base58.b58encode_check(bytes.fromhex(public_key_hex)).decode("utf-8")
 
 # Print result to screen.
