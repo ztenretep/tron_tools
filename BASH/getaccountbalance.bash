@@ -8,7 +8,7 @@ PAYLOAD="{ \"address\": \"${ADDRESS}\" }"
 
 curl -i \
 -H "Accept: application/json" \
--H "Content-Type:application/json" \
+-H "Content-Type: application/json" \
 -X POST --data "${PAYLOAD}" "${URL}"
 
 exit 0
