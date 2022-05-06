@@ -2,6 +2,9 @@
 #!/usr/bin/python3
 """Check Private key generation of Bip39 and Bip44 against tronapi methods.
 
+Script was written with the intention to learn how private and public keys in general
+can be retrieved.
+
 I used tronapi's approach to cross-check my calculation method. With the addition of
 the possibility to use mnemonics fro the seed generation, this became necessary.
 """
@@ -40,7 +43,7 @@ print(fmt_str.format("Mnemonic:", mnemonic))
 # Print message to screen.
 print("\n*** Create private key, public key and Tron address using Bip39 and Bip44\n")
 
-# Generate with automatic language detection and passphrase (empty)
+# Generate seed with automatic language detection and empty passphrase.
 seed_bytes = Bip39SeedGenerator(mnemonic).Generate()
 
 # Create Bip44 Tron object.
