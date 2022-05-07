@@ -69,26 +69,27 @@ def main(substr1, substr2):
     """Main script function."""
     # Try to claim the rewards.
     try:
-        # Build transaction for withdrawing block rewards.
+        # Build transaction for withdrawing the block rewards.
         withdraw_tx = tron.transaction_builder.withdraw_block_rewards()
-        # Sign and broadcast transaction to Mainnet.
-        withdraw_resp = tron.trx.sign_and_broadcast(withdraw_tx)
-        # Create JSON string.
-        withdraw_json = json.dumps(withdraw_resp, indent=2)
-        # Print response.
-        print(withdraw_json)
+        # Sign and broadcast the transaction to the Mainnet.
+        withdraw_resp = tron.trx.sign_and_broadcast(withdraw_tx)     
     except ValueError as err:
         # Check it its a known error.
         if substr1 in str(err) and substr2 in str(err):
-            # Get timestamp from error string.
+            # Extract timestamp from error string.
             dt_str = get_timestamp(str(err))
-            # Get new timestamp from timestamp.
+            # Create new date and time from timestamp.
             new_dt_str = make_dt_str(dt_str)
             print("The claiming of rewards is possible at the earliest:", new_dt_str)
         else:
-         print("Unknown ERROR occured.")
-    except:
-         print("Unknown ERROR occured.")
+            print("Unknown ERROR occured:", str(err))
+    except Exception as err:
+         print("Unknown ERROR occured:", str(err))
+    else:
+        # Create JSON string.
+        withdraw_json = json.dumps(withdraw_resp, indent=2)
+        # Print response.
+        print(withdraw_json) 
     # Return None
     return None
 
