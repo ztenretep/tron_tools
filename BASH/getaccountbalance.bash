@@ -16,6 +16,14 @@ URL="https://api.trongrid.io/walletsolidity/getaccount"
 # Set the Tron address in hex.
 ADDRESS="<tron_address_in_hex>"
 
+# Check if the given address is a valid hex number.
+if ! (( 16#"${ADDRESS}" )) >/dev/null 2>&1; then
+    # Write a message to the screen.
+    echo "Hex address is not valid Error!"
+    # Exit script with error code 1.
+    exit 1
+fi
+
 # Create the JSON payload for the request.
 PAYLOAD="{ \"address\": \"${ADDRESS}\" }"
 
