@@ -1,9 +1,11 @@
 #!/usr/bin/python3
+"""Create a new Tron account.
+"""
 
 # Import the Python module.
 from tronapi import Tron
 
-# Instantiate Tron.
+# Create a new instance of Tron().
 tron = Tron()
 
 # Create an account object.
