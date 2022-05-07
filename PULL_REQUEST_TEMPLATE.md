@@ -1,7 +1,8 @@
 ### Pull Request
 
-If there is a problem in the code, describe the problem as good as possible. If available,
+<p align="justify">If there is a problem in the code, describe the problem as good as possible. If available,
 add informations about operation system, versions of interpreters and versions of modules 
-and so on.
+and so on.</p>
 
-Explain what's the improvement of the pull request. 
+<p align="justify">In case of an improvement, explain what's the improvement of the pull
+request.</p>
