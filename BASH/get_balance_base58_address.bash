@@ -43,8 +43,7 @@ URL="https://api.trongrid.io/walletsolidity/getaccount"
 SUN="1000000"
 
 # Set the Tron address in hex.
-#ADDRESS="<tron_address_in_base58>"
-ADDRESS="TQHgMpVzWkf3Lkd68QS7tcn7S5Y9ayg6Fu"
+ADDRESS="<tron_address_in_base58>"
 
 # Create the JSON payload for the request.
 PAYLOAD="{ \"address\": \"${ADDRESS}\", \"visible\": \"True\" }"
