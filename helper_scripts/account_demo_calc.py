@@ -1,6 +1,6 @@
 
 #!/usr/bin/python3
-"""Check Private key generation of Bip39 and Bip44 against tronapi methods.
+"""Check private key generation of Bip39 and Bip44 against tronapi methods.
 
 Script was written with the intention to learn how private and public keys in general
 can be retrieved.
