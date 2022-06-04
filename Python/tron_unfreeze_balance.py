@@ -14,10 +14,10 @@ is the method argument.
 import json
 from tronapi import Tron
 
-# Set address (public key) to send Tron from.
+# Set public key.
 public_key = "<public_key>"
 
-# Set private key of address to send Tron from.
+# Set private key.
 private_key = "<private_key>"
 
 # Set what to freeze.
