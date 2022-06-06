@@ -25,18 +25,18 @@ tron.default_address = public_key
 # Get account info.
 account_info = tron.trx.get_account()
 
-# Check if dict is empty.
+# Check if dict with account info is empty.
 if not account_info:
    # Print 0 to screen.
    print("0")
    # Exit script without error.
    sys.exit(0)
 
-# Get votes list.
+# Get list of votes.
 votes_list = account_info["votes"]
 
 # Get number of votes.
 votes = sum([n["vote_count"] for n in votes_list])
 
-# Print result to screen.
+# Print votes to screen.
 print(votes)
