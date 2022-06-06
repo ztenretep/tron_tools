@@ -7,13 +7,14 @@ The Tronscan API provides data for the so-called Tronscan Frontend.
   /api/account/list
 
 @params:
-  sort: define the sequence of the records return
+  sort: define the sequence of the returned records
+  count: total number of records 
   limit: page size for pagination
   start: query index for pagination
   count: total number of records
-  start_timestamp: query date range
-  end_timestamp: query date range
-  address: an account
+  start_timestamp: query start date range
+  end_timestamp: query end date range
+  address: Tron account address
 
 Ref.: https://github.com/tronscan/tronscan-frontend/blob/master/document/api.md
 
