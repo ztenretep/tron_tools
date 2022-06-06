@@ -14,20 +14,16 @@ Super Representative (SR). Afterwards one votes for this SR. That's it in princi
 
 ## Implemented
 
-<p align="justify">Implemented so far is:</p>
+<p align="justify">It is implemented so far:</p>
 
 - <p align="justify">Creating Tron accounts.</p>
 - <p align="justify">Requesting balance from blockchain.</>
 - <p align="justify">Freezing balance for staking.</>
-- <p align="justify">Voting for Super Representative.</>
+- <p align="justify">Unfreezing balance from staking.</>
+- <p align="justify">Voting for Super Representatives.</>
 - <p align="justify">Claiming rewards from blockchain.</>
 - <p align="justify">Requesting list of Super Representatives and partners.</>
 - <p align="justify">Requesting account informations.</p>
-
-## To-Do
-
-<p align="justify">A short script for unfreezing of Tron is missing so far. After first period of 3 days I will write and test unfreezing of my 
-Tron balance.</>
 
 <h2>Donation</h2>
 
