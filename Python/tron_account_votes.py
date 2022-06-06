@@ -16,10 +16,10 @@ private_key = "<private_key>"
 # Set public key.
 public_key = "<public_key>"
 
-# Assign private key to Tron() here.
+# Assign private key to tron instance.
 tron.private_key = private_key
 
-# Assign public key to Tron() here.
+# Assign public key to tron instance.
 tron.default_address = public_key
 
 # Get account info.
