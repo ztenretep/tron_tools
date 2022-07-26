@@ -15,7 +15,7 @@ import datetime
 from tronapi import Tron
 from eth_keys import KeyAPI
 
-# Set private key of address to send Tron from.
+# Set private key.
 private_key = '<private_key>'
 
 # Instantiate Tron.
