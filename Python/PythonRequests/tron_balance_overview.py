@@ -7,7 +7,7 @@ Exchange ADDRESS with the address, the balance should requested from.
 # Import the Python module.
 import requests
 
-# Set public key.
+# Set address (public key).
 ADDRESS = "<address>"
 
 # Set the URL for the request.
