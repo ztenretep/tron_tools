@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Get the Tron account overview.
+'''Tron account overview.
 
 Exchange ADDRESS with the address, the balance should requested from.
 '''
