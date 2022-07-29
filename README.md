@@ -2,7 +2,7 @@
 
 ## Motivation
 
-<p align="justify">In the past I used a wallet that allowed me to do TRON (TRX) staking. Some times ago, that wallet provider disabled the staking function. Accordingly, I was looking for a way to do everything necessary from the command line on myself. With the <code>tronapi</code> from PyPi I found a Python package that seems to be useful for testing purposes and more.</p>
+<p align="justify">In the past I used a wallet that allowed me to do TRON (TRX) staking. Some times ago, that wallet provider disabled the staking function. Accordingly, I was looking for a way to do everything necessary from the command line on myself. With the tronapi from PyPi I found a Python package that seems to be useful for testing purposes and more.</p>
 
 ## Introduction
 
