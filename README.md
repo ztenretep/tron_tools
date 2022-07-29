@@ -6,8 +6,10 @@
 
 # Introduction
 
-<p align="justify">In order to understand how access to the TRON blockchain is possible, I wrote scripts in BASH and Python so far. Unlike in other cryptocurrencies, the operation of a local TRON node is not necessary. This is a great advantage if you want to interact with the TRON blockchain.
+<p align="justify">In order to understand how access to the TRON blockchain is possible, I wrote scripts in BASH and Python so far. Unlike in other cryptocurrencies, the operation of a local TRON node is not necessary. This is a great advantage if you want to interact with the TRON blockchain. 
 </p>
+
+<p align="justify">TRON is a fork of the crypto currency Ethereum. As a result of this, programming methods, which were developed for Ethereum are used by TRON in variations. This is important for understanding how to program methods for TRON.</p>
 
 # State of the Art
 
@@ -22,14 +24,13 @@ Super Representative (SR). Afterwards one votes for this SR. That's it in princi
 
 <p align="justify">It is implemented so far:</p>
 
-- <p align="justify">Creating Tron accounts.</p>
-- <p align="justify">Requesting balance from blockchain.</>
-- <p align="justify">Freezing balance for staking.</>
-- <p align="justify">Unfreezing balance from staking.</>
-- <p align="justify">Voting for Super Representatives.</>
-- <p align="justify">Claiming rewards from blockchain.</>
-- <p align="justify">Requesting list of Super Representatives and partners.</>
-- <p align="justify">Requesting account informations.</p>
+- <p align="justify">Creating TRON accounts.</p>
+- <p align="justify">Requesting account informations from the TRON blockchain.</>
+- <p align="justify">Freezing TRON balance for staking.</>
+- <p align="justify">Unfreezing TRON balance from staking.</>
+- <p align="justify">Voting for TRON Super Representatives.</>
+- <p align="justify">Claiming rewards from the TRON blockchain.</>
+- <p align="justify">and some more ...</>
 
 <h2>Donation</h2>
 
