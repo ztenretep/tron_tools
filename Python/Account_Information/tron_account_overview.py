@@ -1,16 +1,25 @@
 #!/usr/bin/python3
 """Tron account overview.
 
+The script collects most of the information which one needs to get an overview
+over a TRON account.
+
+This is the first script version which is able to consider more than one Super
+Representative.
+
 Use your own data for:
     <private_key>  and
     <public key>
 """
+# pylint: disable=no-member
+# pylint: disable=invalid-name
+# pylint: disable=too-many-locals
+# pylint: disable=line-too-long
 
 # Import Python modules
 import os
-import json
-import requests
 from datetime import datetime
+import requests
 from tronapi import Tron
 
 # Set private key.
