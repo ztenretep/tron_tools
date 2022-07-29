@@ -2,10 +2,16 @@
 
 # Motivation
 
-<p align="justify">I used a wallet that allowed me to do Tron (TRX) staking in the past. Some time ago, the wallet provider disabled this function.
-Accordingly, I was looking for a way to do everything necessary from the command line on myself. With 
-the <code>tronapi</code> from PyPi I found a Python package
-that seems to be useful for testing purposes and more.</p>
+<p align="justify">In the past I used a wallet that allowed me to do TRON (TRX) staking. Some times ago, that wallet provider disabled the staking function. Accordingly, I was looking for a way to do everything necessary from the command line on myself. With the <code>tronapi</code> from PyPi I found a Python package that seems to be useful for testing purposes and more.</p>
+
+# Introduction
+
+<p align="justify">In order to understand how access to the TRON blockchain is possible, I wrote scripts in BASH and Python so far. Unlike in other cryptocurrencies, the operation of a local TRON node is not necessary. This is a great advantage if you want to interact with the TRON blockchain.
+</p>
+
+# State of the Art
+
+<p align="justify">Python scripts based on the last <code>tronapi</code> version works well. Using the Python module <code>requests</code> from PyPi, direct access to the TRON RPC API is possible. This allows to use every command from the TRON RPC API.</p>
 
 ## Tron (TRX) Staking
 
