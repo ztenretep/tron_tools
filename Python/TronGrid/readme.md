@@ -14,6 +14,7 @@ Using the Python module <code>requests</code>, which can be installed from PyPi,
 https://developers.tron.network
 </p>
 
+<hr>
 #### Legal Notice
 
 <p align="justify"><small>
