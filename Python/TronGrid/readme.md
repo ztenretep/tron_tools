@@ -15,6 +15,7 @@ https://developers.tron.network
 </p>
 
 <hr>
+
 #### Legal Notice
 
 <p align="justify"><small>
