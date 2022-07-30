@@ -37,12 +37,13 @@ PRIVATE_KEY = "<private_key>"
 PUBLIC_KEY = "<public_key>"
 
 # Set the Super Representative.
-#DATA = [('<super_representative>', '<number_of_votes>')]
-DATA = [('TJX4T7AgfkvWbNAyWTxhgXrJv6Yed6BgDx', 1),
-        ('TTW663tQYJTTCtHh6DWKAfexRhPMf2DxQ1', 1),
-        ('TGJBjL8wmRVyRStkghnhcVNYYgn6Yjno6X', 1),
-        ('TCZvvbn4SCVyNhCAt1L8Kp1qk5rtMiKdBB', 1),
-        ('TDpt9adA6QidL1B1sy3D8NC717C6L5JxFo', 1)]
+#DATA = [('<super_representative>', '<number_of_votes>'),
+#        ('<super_representative>', '<number_of_votes>')]
+DATA = [('TJX4T7AgfkvWbNAyWTxhgXrJv6Yed6BgDg', 1),
+        ('TTW663tQYJTTCtHh6DWKAfexRhPMf2DxQ3', 1),
+        ('TGJBjL8wmRVyRStkghnhcVNYYgn6Yjno6w', 1),
+        ('TCZvvbn4SCVyNhCAt1L8Kp1qk5rtMiKdBA', 1),
+        ('TDpt9adA6QidL1B1sy3D8NC717C6L5JxFL', 1)]
 
 # Create a new instance of class Tron().
 tron = Tron()
