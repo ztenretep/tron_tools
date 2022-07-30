@@ -10,10 +10,9 @@ Using the Python module <code>requests</code>, which can be installed from PyPi,
 # Implemented
 
 <ul>
-<li>getaccount.py</li>
-<li>getreward.py</li>
+<li>getaccount.py - Account overview</li>
+<li>getreward.py - Claimable rewards </li>
 </ul>
-  
 # References
 
 <p align="justify">
