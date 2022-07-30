@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 '''Get the total TRON balance.
 
-Exchange ADDRESS with the address, the account info should be requested from.
+Exchange ADDRESS with the address, the total balance should be requested from.
 '''
 
 # Import the Python module.
