@@ -7,6 +7,13 @@
 Using the Python module <code>requests</code>, which can be installed from PyPi, a direct access of the API is possible.  
 </p>
 
+# Implemented
+
+<ul>
+<li>getaccount.py</li>
+<li>getreward.py</li>
+</ul>
+  
 # References
 
 <p align="justify">
