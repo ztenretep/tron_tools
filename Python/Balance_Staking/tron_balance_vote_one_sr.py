@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Vote for a Tron Super Representative.
+"""Vote for one Tron Super Representative.
 
 If e.g. 100 Tron are frozen, then the corresponding votes are 100.
 Number of votes is in this case also 100.
