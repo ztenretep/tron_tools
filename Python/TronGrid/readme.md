@@ -12,7 +12,9 @@ Using the Python module <code>requests</code>, which can be installed from PyPi,
 <ul>
 <li>getaccount.py - Account overview</li>
 <li>getreward.py - Claimable rewards </li>
+<li>listwitnesses.py - List of Super Representatives</li>
 </ul>
+
 # References
 
 <p align="justify">
