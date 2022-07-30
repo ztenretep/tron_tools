@@ -16,7 +16,7 @@ https://developers.tron.network
 
 <hr>
 
-#### Legal Notice
+<h4>Legal Notice</h4>
 
 <p align="justify"><small>
 Each URL on this side was checked for there content at the time it was published. The author is not responsible for the content of external URLs.
