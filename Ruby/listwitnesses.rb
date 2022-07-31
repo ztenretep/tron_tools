@@ -1,4 +1,7 @@
 #!/usr/bin/ruby
+#
+# Ref.:https://stackoverflow.com/questions/86653/how-to-pretty-format-json-output-in-ruby-on-rails
+# 
 
 # Import required modules.
 require 'uri'
