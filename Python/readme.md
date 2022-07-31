@@ -18,3 +18,6 @@ The scripts in the folder TronGrid are using the Python module <code>requests</c
 The scripts in the folder TronScan are using the Python module <code>requests</code> from PyPi for accessing the TRON blockchain. As the name says, tronscan scans the TRON blockchain for informations.
 </p>
 
+<h2>Donation</h2>
+
+<div class="snippet-clipboard-content position-relative overflow-auto" data-snippet-clipboard-copy-content="TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7"><pre><code>TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7</code></pre></div>
