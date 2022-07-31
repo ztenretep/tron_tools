@@ -10,7 +10,8 @@ import requests
 BLOCK_ID = "00000000000000c82a54a3bbdc956e1ddebc903f29b8daf28505b56f55a3f87d"
 
 # Set the service url.
-URL = "https://api.trongrid.io/wallet/getblockbyid"
+#URL = "https://api.trongrid.io/wallet/getblockbyid"
+URL = "https://api.trongrid.io/walletsolidity/getblockbyid"
 
 # Set payload.
 PAYLOAD = {"value": BLOCK_ID}
