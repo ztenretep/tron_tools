@@ -1,15 +1,19 @@
 #!/usr/bin/ruby
 
+# Import required modules.
 require 'uri'
 require 'net/http'
-require 'openssl'
+require 'json'
+require 'awesome_print'
 
+# Initialise the service url.
 url = URI('https://api.trongrid.io/wallet/listwitnesses')
 
-http = Net::HTTP.new(url.host, url.port)
-http.use_ssl = true
+# Perform the GET method.
+request = Net::HTTP.get(url)
 
-request = Net::HTTP::Get.new(url)
+# Parse json data.
+parsed = JSON.parse(request)
 
-response = http.request(request)
-puts response.read_body
+# Print formated json data to screen.
+ap(parsed)
