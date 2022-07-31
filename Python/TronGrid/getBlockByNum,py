@@ -10,7 +10,8 @@ import requests
 NUMBER = 200
 
 # Set the service url.
-URL = "https://api.trongrid.io/wallet/getblockbynum"
+#URL = "https://api.trongrid.io/wallet/getblockbynum"
+URL = "https://api.trongrid.io/walletsolidity/getblockbynum"
 
 # Set payload.
 PAYLOAD = {"num": NUMBER}
