@@ -1,7 +1,7 @@
 ## Tronscan
 
 <p align="justify">
-The Tronscan Api can be accessed by a browser or via the command line.   
+The Tronscan API can be accessed by a browser or via the command line.   
 </p>
 
 ## References
