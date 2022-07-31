@@ -28,3 +28,11 @@ https://pypi.org/project/tronapi/<br>
 <h2>Donation</h2>
 
 <div class="snippet-clipboard-content position-relative overflow-auto" data-snippet-clipboard-copy-content="TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7"><pre><code>TQamF8Q3z63sVFWiXgn2pzpWyhkQJhRtW7</code></pre></div>
+
+<hr>
+
+<b>Legal Notice</b>
+
+<p align="justify">Each URL on this side was checked for there content at the time it was published. The author is not responsible for the content of external URLs or for changes of the content of external URLs.</p>
+
+
