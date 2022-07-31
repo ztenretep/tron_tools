@@ -25,7 +25,7 @@ tron.private_key = private_key
 # Assign public key to Tron() here.
 tron.default_address = public_key
 
-# Get account info.
+# Get account resource.
 account_resource = tron.trx.get_account_resource()
 
 # Create JSON string.
