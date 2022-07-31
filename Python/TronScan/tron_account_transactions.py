@@ -4,7 +4,7 @@
 The Tronscan API provides data for the so-called Tronscan Frontend.
 
 @request:
-  /api/account/list
+  /api/transaction
 
 @params:
   sort: define the sequence of the returned records
