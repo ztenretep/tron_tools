@@ -20,10 +20,10 @@ The scripts in the folder TronScan are using the Python module <code>requests</c
 
 ### References
 
+https://developers.tron.network/<br>
 https://pypi.org/<br>
 https://pypi.org/project/requests/<br>
 https://pypi.org/project/tronapi/<br>
-https://developers.tron.network/<br>
 
 <h2>Donation</h2>
 
