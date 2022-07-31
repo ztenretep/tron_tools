@@ -34,5 +34,3 @@ https://pypi.org/project/tronapi/<br>
 <b>Legal Notice</b>
 
 <p align="justify">Each URL on this side was checked for there content at the time it was published. The author is not responsible for the content of external URLs or for changes of the content of external URLs.</p>
-
-
