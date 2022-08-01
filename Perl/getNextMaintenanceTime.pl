@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Get next manintenancetime from the FULL NODE HTTP API.
+# Get next maintenance time from the FULL NODE HTTP API.
 #
 # Reference:
 # https://developers.tron.network/reference/getnextmaintenancetime
