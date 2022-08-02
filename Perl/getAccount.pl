@@ -8,7 +8,7 @@
 # on the blockchain but it is not necessarily confirmed. 
 #
 # Reference:
-# https://developers.tron.network/reference/wallet-getnowblock
+# https://developers.tron.network/reference/account-getaccount
 
 # Load the base Perl pragmatic modules (pragmas) as compiler directive.
 use strict;
