@@ -1,6 +1,6 @@
-#!/usr/bin/perl
+ #!/usr/bin/perl
 #
-# Get next maintenance time from the FULL NODE HTTP API.
+# Get next manintenancetime from the FULL NODE HTTP API.
 #
 # Reference:
 # https://developers.tron.network/reference/getnextmaintenancetime
@@ -22,48 +22,45 @@ my $api_path = '/wallet/getnextmaintenancetime';
 # Assemble the service url.
 my $service_url = "$api_url.$api_path";
 
-# ============================
-# Function type_var()
-# use Scalar::Type qw(:all);
-# call: print &type_var($var);
-# ============================
-sub type_var(){
-    # Load required Perl module.
-    use Scalar::Type qw(:all);
-    # Assign arguement to variable. 
-    my $var = $_[0];
-    # Get type of variable.
-    my $chk_var = type($var) . "\n";
-    # Return type of variable.
-    return $chk_var;
-}
+# Declare the global variable $FAC.
+our $FAC;
 
-# ======================================
+# =====================================================================
 # Function get_response()
 #
-# @arg    $service_url -> SCALAR(string)
-# @return $content     -> SCALAR(string)
-# ======================================
+# Description:
+# The subroutine is using the method GET to retrieve the response from
+# the given service url. The service url is given as string and then
+# the service url converted to a HTTP URI object. The content is given
+# back as string.  
+#
+# @arg    $service_url -> STRING
+# @return $content     -> STRING
+# =====================================================================
 sub get_response(){
-    # Read argument from function call.
-    my $service_url = $_[0]; 
-    # Create the servive url.
-    my $url = URI->new($service_url);
-    # Get the response from the service.
-    my $content = get($url);
-    die "Can't GET response from $url" if (! defined $content);
-    # Return content from response.
+    # Assign the argument to the local variable.
+    my $service_url = $_[0];
+    # Create the uri object from the service url.
+    my $uri = URI->new($service_url);
+    # Get the response from the service url or die.
+    my $content = get($uri);
+    die "Can't GET response from $uri" if (! defined $content);
+    # Return the content from the response.
     return $content; 
 };
 
-# ====================================================================
+# ==========================================================
 # Function dec_enc()
 #
-# @arg     $content                     -> SCALAR(string)                    
-# @returns ($json_encode, $json_decode) -> SCALAR(string), REF_TO_HASH
-# ====================================================================
+# Description:
+# The subroutine is decoding and encoding the given content.
+# Both are given back as array.
+#
+# @arg     $content                     -> STRING                    
+# @returns ($json_encode, $json_decode) -> STRING, HASHREF
+# ==========================================================
 sub dec_enc(){
-    # Read argument from function call.
+    # Assign the argument to the local variable.
     my $content = $_[0];
     # Set up the options for the Perl module.
     my $json = 'JSON::PP'->new->pretty;
@@ -75,41 +72,50 @@ sub dec_enc(){
     return ($json_encode, $json_decode);
 }
 
-# ============================
+# =============================
 # Function get_date_time_str()
+#
+# Description:
+# Divide given integer by 1000.
 #
 # @arg    $number -> INTEGER
 # @return $dt     -> INTEGER
-# ============================
+# =============================
 sub get_dt_num{
-    # Read argument from function call.
-    my $number = $_[0]; 
-    my $dt = int($number / 1000);
+    # Assign the argument to the local variable.
+    my $number = $_[0];
+    #my $fac = $_[1]; 
+    my $dt = int($number / $FAC);
     # Return date and time number.
     return $dt;
 };
 
-# ====================================
+# =======================================================
 # Function date_time()
 #
+# Description:
+# Create the date and time string from the given integer.
+#
 # @arg    $dt        -> INTEGER  
-# @return $date_time -> SCALAR(string)
-# ====================================
+# @return $date_time -> STRING
+# =======================================================
 sub date_time(){
-    # Get the argument from the function call.
-    my $dt = $_[0]; 
+    # Assign the argument to the local variable.
+    my $dt = $_[0];
     # Create the date and time string.
     my $date_time = strftime "%Y-%m-%d %H:%M:%S", localtime($dt);
     # Return the date and time string.
     return $date_time;
 }
 
-# ================
-# Subroutine run()
-# ================
-sub run(){
-    # Get the argument from the function call.
+##########################
+# Main script subroutine #
+##########################
+sub main(){
+    # Assign the argument to the local variable.
     my $service_url = $_[0]; 
+    # Initialise the variable $FAC in the local content.
+    local $FAC = 1000;
     # Get content from url.
     my $content = &get_response($service_url);
     # Decode and encode content.
@@ -117,16 +123,17 @@ sub run(){
     # Extract number from json data.
     my $num = $json_decode->{'num'};
     # Get date and time number.
+    #my $dt = &get_dt_num($num);
     my $dt = &get_dt_num($num);
     # Get date and time string.
     my $now_string = &date_time($dt);
-    # Print result to terminal window.
+    # Print the raw json data to the terminal window.
     print "Raw JSON data:", "\n", $json_encode;
-    # Print date and time string.
+    # Print date and time string to the terminal window.
     print "Next maintenance time: ", $now_string, "\n";
 }
 
-#########################
-# Call subroutine run() #
-#########################
-&run($service_url);
+# +++++++++++++++++++++++++++++++++++
+# Call the main script routine run().
+# +++++++++++++++++++++++++++++++++++
+&main($service_url);
