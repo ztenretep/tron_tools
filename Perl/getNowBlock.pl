@@ -19,7 +19,6 @@ use URI;
 use JSON::PP;
 use POSIX;
 use LWP::UserAgent;
-#use sigtrap;
 
 # Set the TRON service url.
 my $api_url = 'https://api.trongrid.io';
