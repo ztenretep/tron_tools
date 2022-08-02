@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Get account from the FULL NODE HTTP API.
+# Get now block from the FULL NODE HTTP API.
 #
 # Service URL:
 # The difference between /walletsolidity/ and /wallet/ is, that
@@ -20,22 +20,25 @@ use POSIX;
 use JSON::PP;
 use LWP::UserAgent;
 
-# Set the account address.
-my $ADDRESS = "<address>";
-
-# Assemble the payload from the address.
-my $PAYLOAD = "\{\"address\":\"$ADDRESS\",\"visible\":\"True\"\}";
-
-# Set the request header.
-my $HEADER = [Accept => 'application/json',
-              Content_Type => 'application/json'];
+# Define the global variables.
+our($ADDRESS, $PAYLOAD, $HEADER, $SERVICE_URL);
 
 # Set api url and api path.
 my $API_URL = 'https://api.trongrid.io';
 my $API_PATH = '/walletsolidity/getaccount';
 
+# Set the account address.
+$ADDRESS = "<address>";
+
+# Assemble the payload from the address.
+$PAYLOAD = "\{\"address\":\"$ADDRESS\",\"visible\":\"True\"\}";
+
+# Set the request header.
+$HEADER = [Accept => 'application/json',
+           Content_Type => 'application/json'];
+
 # Assemble the service url.
-my $SERVICE_URL = $API_URL.$API_PATH;
+$SERVICE_URL = $API_URL.$API_PATH;
 
 # ************
 # Trap SIGINT.
@@ -53,8 +56,8 @@ $SIG{INT} = sub {
 # Description:
 # The subroutine is decoding and encoding the given content.
 #
-# @arg     $content                     -> STRING                    
-# @returns ($json_encode, $json_decode) -> STRING, HASHREF
+# @arg     $content     -> STRING                    
+# @returns $json_encode -> STRING
 # ==========================================================
 sub encode(){
     # Assign the argument to the local variable.
@@ -69,18 +72,18 @@ sub encode(){
     return $json_encode;
 }
 
-# =====================================================================
+# ===================================================================
 # Function get_response()
 #
 # Description:
-# The subroutine is using the method POST to retrieve the response from
-# the given service url. The service url is given as string and then
-# the service url converted to a HTTP URI object. The content is given
-# back as string.
+# The subroutine is using the method POST to retrieve the response
+# from the given service url. The service url is given as string and
+# then the service url converted to a HTTP URI object. The content is
+# given back as string.
 #
 # @arg    $service_url -> STRING
 # @return $content     -> STRING
-# =====================================================================
+# ===================================================================
 sub get_response(){
     # Declare the variable.
     my $content = undef;
@@ -102,7 +105,7 @@ sub get_response(){
         exit 66;
     }
     # Return the content.
-    return $content
+    return $content;
 };
 
 ##########################
