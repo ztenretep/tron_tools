@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Get now block from the FULL NODE HTTP API.
+# Get account from the FULL NODE HTTP API.
 #
 # Service URL:
 # The difference between /walletsolidity/ and /wallet/ is, that
@@ -28,7 +28,8 @@ my $API_URL = 'https://api.trongrid.io';
 my $API_PATH = '/walletsolidity/getaccount';
 
 # Set the account address.
-$ADDRESS = "<address>";
+#$ADDRESS = "<address>";
+$ADDRESS = 'TQHgMpVzWkf3Lkd68QS7tcn7S5Y9ayg6Fu';
 
 # Assemble the payload from the address.
 $PAYLOAD = "\{\"address\":\"$ADDRESS\",\"visible\":\"True\"\}";
@@ -72,18 +73,16 @@ sub encode(){
     return $json_encode;
 }
 
-# ===================================================================
+# ============================================================
 # Function get_response()
 #
 # Description:
-# The subroutine is using the method POST to retrieve the response
-# from the given service url. The service url is given as string and
-# then the service url converted to a HTTP URI object. The content is
-# given back as string.
+# The subroutine is using the HTTP method POST to retrieve the
+# response from the given service url.
 #
 # @arg    $service_url -> STRING
 # @return $content     -> STRING
-# ===================================================================
+# ============================================================
 sub get_response(){
     # Declare the variable.
     my $content = undef;
