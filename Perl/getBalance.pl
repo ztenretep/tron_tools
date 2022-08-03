@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Get now block from the FULL NODE HTTP API.
+# Get total balance from get account from the FULL NODE HTTP API.
 #
 # Service URL:
 # The difference between /walletsolidity/ and /wallet/ is, that
@@ -8,7 +8,7 @@
 # on the blockchain but it is not necessarily confirmed. 
 #
 # Reference:
-# https://developers.tron.network/reference/wallet-getnowblock
+# https://developers.tron.network/reference/account-getaccount
 
 # Load the base Perl pragmatic modules (pragmas) as compiler directive.
 use strict;
@@ -19,6 +19,7 @@ use URI;
 use POSIX;
 use JSON::PP;
 use LWP::UserAgent;
+use Term::ANSIColor;
 
 # Define the global variables.
 our($ADDRESS, $PAYLOAD, $SERVICE_URL, $SUN,
@@ -46,6 +47,18 @@ $KEY2 = 'frozen';
 $KEY3 = 'frozen_balance';
 $KEY4 = 'account_resource';
 $KEY5 = 'frozen_balance_for_energy';
+
+# Define the BEGIN block.
+BEGIN {
+    # Print a colored message into the terminal window.
+    print colored('Cancel the script with CTRL+C.', 'black on_yellow'), "\n";
+}
+
+# Define the END block.
+END {
+    # Print a into the terminal window.
+    print "Have a nice day. Bye!" . "\n";
+}
 
 # ************
 # Trap SIGINT.
