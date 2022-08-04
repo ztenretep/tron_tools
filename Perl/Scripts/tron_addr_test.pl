@@ -7,7 +7,7 @@ use warnings;
 # Load the required Perl modules.
 use Term::ANSIColor;
 
-# Load user the defined package.
+# Load the user defined package.
 use lib '<path_to_lib>';
 use tron_addr_tool;
 
