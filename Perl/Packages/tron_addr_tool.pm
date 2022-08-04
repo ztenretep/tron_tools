@@ -1,8 +1,8 @@
 package tron_addr_tool;
 # ##############################################################################
 # How to load the user defined package from within a Perl script:
-# use lib '/home/deathlok/TRON/Perl';
-# use tron_addr;
+# use lib '<path_to_package>';
+# use tron_addr_tool;
 # ##############################################################################
 
 # Load the Perl pragma Exporter.
