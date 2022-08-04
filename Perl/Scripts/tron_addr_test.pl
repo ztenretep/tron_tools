@@ -8,7 +8,7 @@ use warnings;
 use Term::ANSIColor;
 
 # Load user the defined package.
-use lib '/home/deathlok/TRON/Perl';
+use lib '<path_to_lib>';
 use tron_addr_tool;
 
 # Print installation path.
@@ -17,7 +17,7 @@ use tron_addr_tool;
 # Define the global variables.
 our($BASE58_ADDR, $HEX_ADDR);
 
-# Set the account address.
+# Set the address.
 $BASE58_ADDR = 'TLrj4MzaitvA2jRH7a8G4f8JtqhTsTg4sy';
 $HEX_ADDR = '41776F8FEAD2E1E8C256A85957B37A91BD90AB5EFE';
 
