@@ -12,8 +12,10 @@ use Exporter;
 @ISA = qw(Exporter);
 
 # Export the implemented subroutines.
-@EXPORT = qw(getserviceresponse parseaccountresource parsereward
-             parsenextmaintenancetime parseaccountbalance);
+@EXPORT = qw(get_service_response parse_accountresource
+             parse_reward parse_nextmaintenancetime
+             parse_account_dates parse_account_votes
+             parse_account_frozen);
 
 # Load the standard Perl pragmas.
 use strict;
@@ -30,7 +32,7 @@ use Scalar::Util qw(looks_like_number);
 # Set the variable $sun.
 my $SUN = 1000000;
 
-# Set the services hash.
+# Define the services hash.
 my %SERVICES = (
     'getnextmaintenancetime' => ['wallet/getnextmaintenancetime', 'get'],
     'getaccountresource'     => ['wallet/getaccountresource',     'post'],
@@ -38,7 +40,7 @@ my %SERVICES = (
     'getreward'              => ['wallet/getReward',              'post']
 );
 
-# Set the allowed attribute names.
+# Define the allowed attribute names.
 my @ARGSARR = ('address', 'service');
 my %ARGHASH = map { $_ => 1 } @ARGSARR;
 
@@ -82,13 +84,13 @@ sub new {
 # ====================
 sub date_time {
     # Assign the argument to the local variable.
-    my $number = $_[0];
+    my $dt_ms = $_[0];
     # Set the required devisor.
-    my $div = 1000;
+    my $milliseconds = 1000;
     # Get the date and time number. 
-    my $dt_num = int($number / $div);
+    my $dt_sec = int($dt_ms / $milliseconds);
     # Create the date and time string.
-    my $date_time = strftime "%Y-%m-%d %H:%M:%S", localtime($dt_num);
+    my $date_time = strftime "%Y-%m-%d %H:%M:%S", localtime($dt_sec);
     # Return the date and time string.
     return $date_time;
 };
@@ -98,7 +100,8 @@ sub date_time {
 # =================
 sub encode {
     # Get the class attributes.
-    my ($self, $content) = @_;
+    my ($content_obj) = @_;
+    my $content = $content_obj->{'content'}; 
     # Initialise the $json object.
     my $json = 'JSON::PP'->new->pretty;
     # Get the encoded content.
@@ -112,13 +115,19 @@ sub encode {
 # =================
 sub decode {
     # Get the class attributes.
-    my ($self, $content) = @_;
+    my ($content_obj) = @_;
+    my $content = $content_obj->{'content'}; 
     # Initialise the $json object.
     my $json = 'JSON::PP'->new->pretty;
     # Get the decoded content.
     my $decoded = $json->decode($content);
-    # Return the decode content.
-    return $decoded;
+    # Initialise a new object and bless it.
+    my $decoded_obj = {};
+    bless $decoded_obj;
+    # Create $decoded_obj; 
+    $decoded_obj->{'decoded'} = $decoded;
+    # Return $decoded_obj to the class.
+    return $decoded_obj;
 };
 
 # ===================
@@ -158,12 +167,13 @@ sub response {
     return $content;
 };
 
-# ===============================
-# Subroutine parseaccountresource
-# ===============================
-sub parseaccountresource {
+# ================================
+# Subroutine parse_accountresource
+# ================================
+sub parse_accountresource {
     # Get the class attributes.
-    my ($self, $decoded) = @_;
+    my ($decoded_obj) = @_;
+    my $decoded = $decoded_obj->{'decoded'};
     # Create an array with the keywords.
     my @keyarr = ('NetLimit', 'freeNetLimit', 'NetUsed',
                   'freeNetUsed', 'EnergyLimit', 'EnergyUsed');
@@ -203,107 +213,145 @@ sub parseaccountresource {
 };
 
 # ==============================
-# Subroutine parseaccountbalance
+# Subroutine parse_account_dates
 # ==============================
-sub parseaccountbalance {
+sub parse_account_dates {
     # Get the class attributes.
-    my ($self, $decoded) = @_;
-    # Get total votes and list of Super Representatives.
-    my %sr_hash = (); 
-    my $total_votes = 0;
-    my $sr_address = undef;
-    my $sr_votes = undef;
-    my $votes = $decoded->{'votes'};
-    # Loop over the SR's.
-    for my $ele (@$votes) {
-        $sr_address = $ele->{'vote_address'};
-        $sr_votes = $ele->{'vote_count'};
-        $sr_hash{$sr_address} = $sr_votes;
-        $total_votes += $sr_votes;
-    };
-    # Assemble the array with the result.
-    my @res0 = ($total_votes, \%sr_hash);
+    my ($decoded_obj) = @_;
+    my $decoded = $decoded_obj->{'decoded'};
+    # Create an array with the keywords.
+    my @keys = ('account_resource', 'latest_consume_time_for_energy', 'create_time',
+                'latest_consume_free_time', 'latest_consume_time', 'latest_withdraw_time',
+                'latest_withdraw_time', 'latest_opration_time');
     # Get account data.
-    my @keys = ('balance', 'frozen', 'frozen_balance',
-                'account_resource', 'frozen_balance_for_energy');
-    my $frozen_expire = ($decoded->{'frozen'}[0]{'expire_time'});
-    my $energy_expire = ($decoded->{'account_resource'}{'frozen_balance_for_energy'}{'expire_time'});
-    my $latest_consume_time_for_energy = date_time($decoded->{'account_resource'}{'latest_consume_time_for_energy'});
-    my $create_time = date_time($decoded->{'create_time'});
-    my $latest_consume_free_time = date_time($decoded->{'latest_consume_free_time'});
-    my $latest_consume_time = date_time($decoded->{'latest_consume_time'});
-    my $latest_withdraw_time = date_time($decoded->{'latest_withdraw_time'});
-    my $latest_opration_time = date_time($decoded->{'latest_opration_time'});
+    my $latest_consume_time_for_energy = date_time($decoded->{$keys[0]}{$keys[1]});
+    my $create_time = date_time($decoded->{$keys[2]});
+    my $latest_consume_free_time = date_time($decoded->{$keys[3]});
+    my $latest_consume_time = date_time($decoded->{$keys[4]});
+    my $latest_withdraw_time = date_time($decoded->{$keys[5]});
+    my $next_withdraw_time = date_time($decoded->{$keys[6]} + 86400*1000);
+    my $latest_opration_time = date_time($decoded->{$keys[7]});
     # Assemble the array with the result.
-    my @res4 = ($create_time, $latest_consume_free_time, $latest_consume_time, 
-                $latest_withdraw_time, $latest_opration_time, $latest_consume_time_for_energy);
-    # Get expiration dates.
-    $frozen_expire = date_time($frozen_expire);
-    $energy_expire = date_time($energy_expire);
-    # Assemble the array with the result.
-    my @res1 = ($frozen_expire, $energy_expire);
-    #
-    my $free = ($decoded->{$keys[0]}) / $SUN;
-    my $frozen = ($decoded->{$keys[1]}[0]{$keys[2]}) / $SUN;
-    my $energy = ($decoded->{$keys[3]}{$keys[4]}{$keys[2]}) / $SUN;
-    # Assemble the array with the result.
-    my @res2 = ($free, $frozen, $energy);
-    # Calculate the other account data.
-    my $total = $free + $frozen + $energy;
-    my $total_frozen = $frozen + $energy;
-    # Assemble a array with the result.
-    my @res3 = ($total, $total_frozen);
-    # Assemble the final array with the result.
-    my @result = (@res0, @res1, @res2, @res3, @res4);
+    my @result = ($create_time, $latest_consume_free_time, $latest_consume_time, 
+                $latest_withdraw_time, $next_withdraw_time, $latest_opration_time,
+                $latest_consume_time_for_energy);
     # Return the array with the data.
     return @result;
 };
 
-# ===========================
-# Subroutine parse_get_reward
-# ===========================
-sub parsereward {
+# ===============================
+# Subroutine parse_account_frozen
+# ===============================
+sub parse_account_frozen {
     # Get the class attributes.
-    my ($self, $decoded) = @_;
-    # Get the reward as number.
-    my $reward = ($decoded->{'reward'}) / $SUN;
+    my ($decoded_obj) = @_;
+    my $decoded = $decoded_obj->{'decoded'};
+    # Set the $keys.
+    my @keys = ('balance', 'frozen', 'frozen_balance', 'account_resource',
+                'frozen_balance_for_energy', 'expire_time');
+    # Get expiration dates and times.
+    my $frozen_expire = ($decoded->{$keys[1]}[0]{$keys[5]});
+    my $energy_expire = ($decoded->{$keys[3]}{$keys[4]}{$keys[5]});
+    $frozen_expire = date_time($frozen_expire);
+    $energy_expire = date_time($energy_expire);
+    # Get the frozen account data.
+    my $free = ($decoded->{$keys[0]}) / $SUN;
+    my $frozen = ($decoded->{$keys[1]}[0]{$keys[2]}) / $SUN;
+    my $energy = ($decoded->{$keys[3]}{$keys[4]}{$keys[2]}) / $SUN;
+    # Calculate the other account data.
+    my $total = $free + $frozen + $energy;
+    my $total_frozen = $frozen + $energy;
+    # Assemble the final array with the result.
+    my @result = ($frozen_expire, $energy_expire, $free,
+                  $frozen, $energy, $total, $total_frozen);
+    # Return the array with the data.
+    return @result;
+};
+
+# ==============================
+# Subroutine parse_account_votes
+# ==============================
+sub parse_account_votes {
+    # Get the class attributes.
+    my ($decoded_obj) = @_;
+    my $decoded = $decoded_obj->{'decoded'};
+    # Set the $key array.
+    my @keys = ('votes', 'vote_address', 'vote_count');
+    # Get total votes and list of Super Representatives (SR's).
+    my %sr_hash = (); 
+    my $total_votes = 0;
+    my $sr_address = undef;
+    my $sr_votes = undef;
+    #my $votes = $decoded->{'votes'};
+    my $votes = $decoded->{$keys[0]};
+    # Loop over the SR's.
+    for my $ele (@$votes) {
+        $sr_address = $ele->{$keys[1]};
+        $sr_votes = $ele->{$keys[2]};
+        $sr_hash{$sr_address} = $sr_votes;
+        $total_votes += $sr_votes;
+    };
+    # Assemble the array with the result.
+    my @result = ($total_votes, \%sr_hash);
+    # Return the array with the data.
+    return @result;
+};
+
+# =======================
+# Subroutine parse_reward
+# =======================
+sub parse_reward {
+    # Get the class attributes.
+    my ($decoded_obj) = @_;
+    my $decoded = $decoded_obj->{'decoded'};
+    # Set the key.
+    my $key = 'reward';
+    # Get the reward as number in seconds.
+    my $reward = ($decoded->{$key}) / $SUN;
     # Return the reward.
     return $reward;
 };
 
-# ===========================
-# Subroutine get_maintenance.
-# ===========================
-sub parsenextmaintenancetime {
+# ====================================
+# Subroutine parse_nextmaintenancetime
+# ====================================
+sub parse_nextmaintenancetime {
     # Get the class attributes.
-    my ($self, $decoded) = @_;
+    my ($decoded_obj) = @_;
+    my $decoded = $decoded_obj->{'decoded'};
+    # Set the key.
+    my $key = 'num';
     # Get date and time as number.
-    my $dt_num = ($decoded->{'num'});
+    my $dt_num = ($decoded->{$key});
     # Get date and time as string.
     my $dt_str = date_time($dt_num);
     # Return date and time.
     return $dt_str;
 };
 
-# =============================
-# Subroutine getserviceresponse
-# =============================
-sub getserviceresponse {
+# ===============================
+# Subroutine get_service_response
+# ===============================
+sub get_service_response {
     # Get the class attributes.
     my $self = shift;
-    my $payload = $self->{payload};
     my $method = $self->{method};
-    #print $payload . "\n";
     my $service_url = $self->{service_url};
     my $service_path = $self->{service_path};
+    my $payload = $self->{payload};
     # Set the service url.
     my $api_url = $service_url . $service_path;
     # Set the array for the HTTP request.
     my @arr = ($api_url, $payload, $method);
     # Get the content from the response.
     my $content = response(@arr);
-    # Return the content.
-    return $content;
+    # Initialise a new object and bless it.
+    my $content_obj = {};
+    bless $content_obj;
+    # Create $content_obj; 
+    $content_obj->{'content'} = $content;
+    # Return $obj to the class.
+    return $content_obj;
 };
 
 1;
