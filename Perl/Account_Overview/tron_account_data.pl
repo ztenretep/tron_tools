@@ -12,7 +12,7 @@ use tron_account_data;
 use Term::ANSIColor;
 
 # Set the TRON account address.
-my $TRON_ADDRESS = '<your_tron_address>';
+my $TRON_ADDRESS = '<tron_address>';
 
 # ++++++++++++++++++++++
 # Define the BEGIN block
@@ -49,16 +49,15 @@ $SIG{INT} = sub {
 # ===============================
 # Subroutine printaccountresource
 # ===============================
-sub printaccountresource {
+sub print_accountresource {
     # Declare the array.
     my $array; 
     # Set the format strings.
     my $fmtstr = "%-11s%s / %s\n";
     # Get account resource.
-    my $tron = tron_account_data->new('address' => $TRON_ADDRESS, 'service' => 'getaccountresource');
-    my $content = $tron->getserviceresponse();
-    my $decoded = $tron->decode($content);
-    my @array = $tron->parseaccountresource($decoded);
+    my %request = ('address' => $TRON_ADDRESS, 'service' => 'getaccountresource');
+    my $tron = tron_account_data->new(%request);
+    my @array = $tron->get_service_response->decode->parse_accountresource();
     my ($TotalBandwidth, $FreeBandwidth, $TotalEnergy, $FreeEnergy) = @array;
     # Print result into terminal window.
     printf($fmtstr, "Bandwidth:", "$FreeBandwidth", "$TotalBandwidth"); 
@@ -68,16 +67,17 @@ sub printaccountresource {
 # ======================
 # Subroutine printreward
 # ======================
-sub printreward {
+sub print_reward {
     # Declare the array.
     my $array; 
     # Set the format string.
     my $fmtstr = "%-19s%s TRX\n";
-    # Get reward.
-    my $tron = tron_account_data->new('address' => $TRON_ADDRESS, 'service' => 'getreward');
-    my $content = $tron->getserviceresponse();
-    my $decoded = $tron->decode($content);
-    my $reward = $tron->parsereward($decoded);
+    # Set the request data.
+    my %request = ('address' => $TRON_ADDRESS,
+                   'service' => 'getreward');
+    # Create a new object.
+    my $tron = tron_account_data->new(%request);
+    my $reward = $tron->get_service_response->decode->parse_reward();
     # Print result into terminal window.
     printf($fmtstr, "Available Rewards:", "$reward"); 
 };
@@ -85,42 +85,63 @@ sub printreward {
 # ===============================
 # Subroutine printmaintenancetime
 # ===============================
-sub printmaintenancetime {
+sub print_maintenancetime {
+    # Declare the array.
+    my $array; 
+    # Set the format string.
+    my $fmtstr = "%-23s%s\n";
+    # Get the data from the request.
+    my %request = ('address' => $TRON_ADDRESS, 'service' => 'getnextmaintenancetime');
+    # Create a new object.
+    my $tron = tron_account_data->new(%request);
+    my $result = $tron->get_service_response->decode->parse_nextmaintenancetime();
+    # Print the data into the terminal window.
+    printf($fmtstr, "Next Maintenance Time:", "$result"); 
+};
+
+# ============================
+# Subroutine print_accountdate
+# ============================
+sub print_accountdates {
     # Declare the array.
     my $array; 
     # Set the format strings.
-    my $fmtstr = "%-23s%s\n";
-    # Get the data from the request.
-    my $tron = tron_account_data->new('address' => $TRON_ADDRESS, 'service' => 'getnextmaintenancetime');
-    my $content = $tron->getserviceresponse();
-    my $decoded = $tron->decode($content);
-    my $maintenance = $tron->parsenextmaintenancetime($decoded);
-    # Print the data into the terminal window.
-    printf($fmtstr, "Next Maintenance Time:", "$maintenance"); 
+    my $fmtstr1 = "%-23s%s\n";
+    my $fmtstr2 = "%-32s%s\n";
+    # Get the data from the response.
+    my %request = ('address' => $TRON_ADDRESS, 'service' => 'getaccount');
+    my $tron = tron_account_data->new(%request);
+    my @data = $tron->get_service_response->decode->parse_account_dates();
+    my ($create_time, $latest_consume_free_time, $latest_consume_time,
+        $latest_withdraw_time, $next_withdraw_time, $latest_opration_time,
+        $latest_consume_time_for_energy) = @data;
+    printf($fmtstr1, "Creation Time:", "$create_time"); 
+    printf($fmtstr1, "Latest Operation Time:", "$latest_opration_time"); 
+    print "\n";
+    printf($fmtstr1, "Latest Withdraw Time:", "$latest_withdraw_time"); 
+    printf($fmtstr1, "Next Withdraw Time:", "$next_withdraw_time"); 
+    print "\n";
+    printf($fmtstr2, "Latest Consume Time for Energy:", "$latest_consume_time_for_energy"); 
+    printf($fmtstr2, "Latest Consume Free Time:", "$latest_consume_free_time"); 
+    printf($fmtstr2, "Latest Consume Time:", "$latest_consume_time"); 
 };
 
-# =======================
-# Subroutine printbalance
-# =======================
-sub printaccountbalance {
+# ===============================
+# Subroutine print_account_frozen
+# ===============================
+sub print_accountfrozen {
     # Declare the array.
     my $array; 
     # Set the format strings.
     my $fmtstr0 = "%-15s%s TRX\n";
     my $fmtstr1 = "%-26s%s TRX\n";
     my $fmtstr2 = "%-26s%s\n";
-    my $fmtstr3 = "%-13s%s\n\n";
-    my $fmtstr4 = "%-23s%s\n";
-    my $fmtstr5 = "%-32s%s\n";
     # Get the data from the response.
-    my $tron = tron_account_data->new('address' => $TRON_ADDRESS, 'service' => 'getaccount');
-    my $content = $tron->getserviceresponse();
-    my $decoded = $tron->decode($content);
-    my $maintenance = $tron->parseaccountbalance($decoded);
-    my ($total_votes, $sr_hash, $frozen_expire, $energy_expire, $free, $frozen, $energy, $total, $total_frozen,
-        $create_time, $latest_consume_free_time, $latest_consume_time,
-        $latest_withdraw_time, $latest_opration_time, $latest_consume_time_for_energy) = $tron->parseaccountbalance($decoded);
-    # Print result into terminal window.
+    my %request = ('address' => $TRON_ADDRESS, 'service' => 'getaccount');
+    my $tron = tron_account_data->new(%request);
+    my @data = $tron->get_service_response->decode->parse_account_frozen();
+    my ($frozen_expire, $energy_expire, $free, $frozen, $energy, $total, $total_frozen) = @data;
+    # Print the data into the terminal window.
     printf($fmtstr0, "Total Balance:", "$total"); 
     printf($fmtstr0, "Free Balance:", "$free"); 
     print "\n";
@@ -129,36 +150,49 @@ sub printaccountbalance {
     printf($fmtstr1, "Frozen for Energy:", "$energy"); 
     printf($fmtstr2, "Expiration Date and Time:", "$energy_expire"); 
     printf($fmtstr1, "Total Frozen Balance:", "$total_frozen"); 
-    print "\n";
-    printf($fmtstr3, "Total votes:", "$total_votes");
+};
+
+# =============================
+# Subroutine print_accountvotes
+# =============================
+sub print_accountvotes {
+    # Declare the array.
+    my $array; 
+    # Set the format strings.
+    my $fmtstr = "%-13s%s\n\n";
+    # Get the data from the response.
+    my %request = ('address' => $TRON_ADDRESS, 'service' => 'getaccount');
+    my $tron = tron_account_data->new(%request);
+    my @data = $tron->get_service_response->decode->parse_account_votes();
+    my ($total_votes, $sr_hash) = @data;
+    # Print the data into the terminal window.
+    printf($fmtstr, "Total votes:", "$total_votes");
     while (my ($key, $value) = each %$sr_hash) {
-	print "$key $value\n";
-    }
-    print "\n";
-    printf($fmtstr4, "Creation Time:", "$create_time"); 
-    printf($fmtstr4, "Latest Operation Time:", "$latest_opration_time"); 
-    printf($fmtstr4, "Latest Withdraw Time:", "$latest_withdraw_time"); 
-    print "\n";
-    printf($fmtstr5, "Latest Consume Time for Energy:", "$latest_consume_time_for_energy"); 
-    printf($fmtstr5, "Latest Consume Free Time:", "$latest_consume_free_time"); 
-    printf($fmtstr5, "Latest Consume Time:", "$latest_consume_time"); 
+        print "$key $value\n";
+    };
 };
 
 ##########################
 # Main script subroutine #
 ##########################
 sub main {
-    # Print account resource.
-    printaccountbalance();
-    print "\n";
-    # Print account resource.
-    printaccountresource();
+    # Print account frozen.
+    print_accountfrozen();
     print "\n";
     # Print reward.
-    printreward();
+    print_reward();
+    print "\n";
+    # Print maintenancetime.
+    print_maintenancetime();
     print "\n";
     # Print account resource.
-    printmaintenancetime();
+    print_accountresource();
+    print "\n";
+    # Print account votes.
+    print_accountvotes();
+    print "\n";
+    # Print account overview.
+    print_accountdates();
 };
 
 # +++++++++++++++++++++++++++++++++++++++
