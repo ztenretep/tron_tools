@@ -60,9 +60,9 @@ END {
     print "Have a nice day. Bye!" . "\n";
 }
 
-# ************
-# Trap SIGINT.
-# ************
+# ***********
+# Trap SIGINT
+# ***********
 $SIG{INT} = sub {
     # Print a message to the terminal window.
     print "You pressed Ctrl-C. Exiting. Bye!" . "\n";
