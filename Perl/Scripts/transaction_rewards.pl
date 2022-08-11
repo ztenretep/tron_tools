@@ -1,4 +1,11 @@
 #!/usr/bin/perl
+#
+# The script reads the transactions related to Rewards from the list of
+# the last 20 transactions. The API only allows the maximum possible query
+# of the last 20 transactions. 
+#
+# Reference: 
+# https://github.com/tronscan/tronscan-frontend/blob/master/document/api.md
 
 # Load the base Perl pragmatic modules (pragmas) as compiler directive.
 use strict;
@@ -14,7 +21,8 @@ use LWP::UserAgent;
 our($ADDRESS, $PAYLOAD, $HEADER, $SERVICE_URL);
 
 # Set the TRON account address.
-my $ADDRESS = '<tron_address>';
+#my $TRON_ADDRESS = '<tron_address>';
+$ADDRESS = 'TQHgMpVzWkf3Lkd68QS7tcn7S5Y9ayg6Fu';
 
 # Set the number of transactions.
 my $LIMIT = 20;
@@ -82,7 +90,7 @@ sub get_response {
         print "HTTP error message: ", $response->message, "\n";
         # Exit script.
         exit 1;
-    }
+    };
     # Return the content.
     return $content;
 };
@@ -90,12 +98,12 @@ sub get_response {
 ##########################
 # Main script subroutine #
 ##########################
-sub main(){
+sub main {
     # Get the content.
     my $content = get_response();
     # Encode the content.
     my $json_encode = encode($content);
-}
+};
 
 # +++++++++++++++++++++++++++++++
 # Call the script subroutine main
