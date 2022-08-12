@@ -26,7 +26,7 @@ use LWP::UserAgent;
 our($ADDRESS, $PAYLOAD, $HEADER, $SERVICE_URL);
 
 # Set the TRON account address.
-my $ADDRESS = '<tron_address>';
+$ADDRESS = '<tron_address>';
 
 # Set the number of transactions.
 my $LIMIT = 20;
