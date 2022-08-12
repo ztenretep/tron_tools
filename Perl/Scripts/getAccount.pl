@@ -47,7 +47,7 @@ $SIG{INT} = sub {
     # Print message to terminal window.
     print "You pressed Ctrl-C. Exiting. Bye!" . "\n";
     # Exit script.
-    exit 42;
+    exit 0;
 };
 
 # ==========================================================
@@ -59,7 +59,7 @@ $SIG{INT} = sub {
 # @arg     $content     -> STRING                    
 # @returns $json_encode -> STRING
 # ==========================================================
-sub encode(){
+sub encode {
     # Assign the argument to the local variable.
     my $content = $_[0];
     # Set up the options for the Perl module.
@@ -73,7 +73,7 @@ sub encode(){
 }
 
 # ============================================================
-# Function get_response()
+# Function get_response
 #
 # Description:
 # The subroutine is using the HTTP method POST to retrieve the
@@ -82,7 +82,7 @@ sub encode(){
 # @arg    $service_url -> STRING
 # @return $content     -> STRING
 # ============================================================
-sub get_response(){
+sub get_response {
     # Declare the variable.
     my $content = undef;
     # Create a new uri object.
@@ -109,16 +109,16 @@ sub get_response(){
 ##########################
 # Main script subroutine #
 ##########################
-sub main(){
+sub main {
     # Get the content from the service url.
-    my $content = &get_response();
+    my $content = get_response();
     # Encode the content.
     my $json_encode = &encode($content);
     # Print the raw json data to the terminal window.
     print $json_encode;
-}
+};
 
-# +++++++++++++++++++++++++++++++++++
-# Call the main script routine run().
-# +++++++++++++++++++++++++++++++++++
-&main();
+# ++++++++++++++++++++++++
+# Call the subroutine main
+# ++++++++++++++++++++++++
+main();
