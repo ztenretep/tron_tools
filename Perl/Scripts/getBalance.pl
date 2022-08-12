@@ -73,7 +73,7 @@ $SIG{INT} = sub {
 ##########################
 # Main script subroutine #
 ##########################
-sub main(){
+sub main {
     # Create the uri object from the service url.
     my $uri = URI->new($SERVICE_URL);
     # Create a new user agent object.
@@ -94,9 +94,9 @@ sub main(){
     my $total = ($free + $frozen + $energy) / $SUN;
     # Print the total TRON balance to the screen.
     print $total . "\x20TRX" . "\n"; 
-}
+};
 
-# +++++++++++++++++++++++++++++++++
-# Call the script subroutine main()
-# +++++++++++++++++++++++++++++++++
-&main();
+# ++++++++++++++++++++++++
+# Call the subroutine main
+# ++++++++++++++++++++++++
+main();
