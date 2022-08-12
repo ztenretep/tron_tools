@@ -23,20 +23,19 @@ use JSON::PP;
 use LWP::UserAgent;
 
 # Define the global variables.
-our($ADDRESS, $PAYLOAD, $HEADER, $SERVICE_URL);
+our($ADDRESS, $PAYLOAD, $API_URL, $LIMIT, $JSON_PP);
 
 # Set the TRON account address.
 $ADDRESS = '<tron_address>';
 
 # Set the number of transactions.
-my $LIMIT = 20;
-
-# Set the params.
-my $PARAM_LIMIT = $LIMIT;
-my $PARAM_ADDRESS = $ADDRESS;
+$LIMIT = 20;
 
 # Set the API URL.
-$SERVICE_URL = "https://apilist.tronscan.org/api/transaction?sort=-timestamp&count=true&limit=" . "$PARAM_LIMIT" . "&start=0&address=" . "$PARAM_ADDRESS";
+$API_URL = "https://apilist.tronscan.org/api/transaction?sort=-timestamp&count=true&limit=" . "$LIMIT" . "&start=0&address=" . "$ADDRESS";
+
+# Set the class variable.
+$JSON_PP = 'JSON::PP';
 
 # ************
 # Trap SIGINT.
@@ -44,8 +43,8 @@ $SERVICE_URL = "https://apilist.tronscan.org/api/transaction?sort=-timestamp&cou
 $SIG{INT} = sub {
     # Print message to terminal window.
     print "You pressed Ctrl-C. Exiting. Bye!" . "\n";
-    # Exit script.
-    exit 42;
+    # Exit the script without an error.
+    exit 0;
 };
 
 # ===============
@@ -55,31 +54,31 @@ sub encode {
     # Assign the argument to the local variable.
     my $content = $_[0];
     # Set up the options for the Perl module.
-    my $json = 'JSON::PP'->new->pretty;
+    my $json = $JSON_PP->new->pretty;
     # Decode the content of the response.
-    my $json_decode = $json->decode($content);
+    my $decoded = $json->decode($content);
     # Get the data from the content.
-    my $data = $json_decode->{'data'};
+    my $data = $decoded->{'data'};
     # Loop over the array of hashes.
-    for my $ele (@$data) {
+    for my $hash (@$data) {
         # Get contract type.
-        my $contract_type = $ele->{'contractType'};
+        my $contract_type = $hash->{'contractType'};
         # Check the contract type.
         if ($contract_type eq 4) {
             # Print result to screen.      
-            print $json->encode($ele);
+            print $json->encode($hash);
         };
     };
 };
 
-# =====================
-# Function get_response
-# =====================
-sub get_response {
+# =================
+# Function response
+# =================
+sub response {
     # Declare the variable.
     my $content = undef;
     # Create a new uri object.
-    my $uri = URI->new($SERVICE_URL);
+    my $uri = URI->new($API_URL);
     # Create a new user agent object.
     my $ua = LWP::UserAgent->new;
     # Get the response from the uri.
@@ -104,12 +103,12 @@ sub get_response {
 ##########################
 sub main {
     # Get the content.
-    my $content = get_response();
+    my $content = response();
     # Encode the content.
-    my $json_encode = encode($content);
+    my $encoded = encode($content);
 };
 
-# +++++++++++++++++++++++++++++++
-# Call the script subroutine main
-# +++++++++++++++++++++++++++++++
+# ++++++++++++++++++++
+# Call subroutine main
+# ++++++++++++++++++++
 main();
