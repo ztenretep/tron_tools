@@ -66,8 +66,8 @@ END {
 $SIG{INT} = sub {
     # Print a message to the terminal window.
     print "You pressed Ctrl-C. Exiting. Bye!" . "\n";
-    # Exit the script with an error code.
-    exit 42;
+    # Exit the script without an error code.
+    exit 0;
 };
 
 ##########################
