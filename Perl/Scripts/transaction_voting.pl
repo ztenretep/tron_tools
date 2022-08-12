@@ -4,6 +4,11 @@
 # last 20 transactions. The API only allows the maximum possible query of
 # the last 20 transactions. 
 #
+# 1  -> Transfer TRX
+# 4  -> Vote
+# 11 -> TRX Staking 
+# 13 -> Claim Rewards  
+#
 # Reference: 
 # https://github.com/tronscan/tronscan-frontend/blob/master/document/api.md
 
@@ -21,7 +26,7 @@ use LWP::UserAgent;
 our($ADDRESS, $PAYLOAD, $HEADER, $SERVICE_URL);
 
 # Set the TRON account address.
-my $ADDRESS = '<tron_address>';
+$ADDRESS = '<tron_address>';
 
 # Set the number of transactions.
 my $LIMIT = 20;
