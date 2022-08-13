@@ -1,22 +1,13 @@
-## Motivation
-
-I started learning how Perl works. After understanding some basics I checked out how packages and 
-classes can be used. Access to the TRON blockchain is possible by using GET or POST HTTP 
-requests. 
-
 ## Account Overview
 
-In this section there is a Perl script and the related Perl package, that prints the an account overview for 
-a given TRON account to the terminal window. I am using this script for daily checking my TRON account.  
+<p justify="align>This folder contains a Perl script and a Perl package which works out of 
+the box. The access to the TRON blockchain is possible by using GET or POST HTTP requests
+of the TRON API. This is done by the Perl package. The Perl script is still organising the 
+output into the terminal window.</p>
 
 ## To-Do
 
-At the end it should be possible to get the needed data e.g. for the 
-account from the blockchain within the package. Then single values like
- total, free and frozen balance should be callable. One times get the data 
-and then getting the relevant informations will reduce bandwidth usage.
+<p justify="align>Missing are informations about the history of the transaction. I know how 
+to get the history of the transaction. A script is implemented. Missing is still parsing the 
+JSON data in a pretty form for the account overview.</p>
 
-</BR>
-
-Last but not least informations about the transactions from the past are missing.
- I have to check out in which way I have to parse the data I can retrieve from the blockchain.
