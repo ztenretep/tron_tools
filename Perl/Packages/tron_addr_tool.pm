@@ -9,11 +9,11 @@ package tron_addr_tool;
 use Exporter;
 
 # Base class of this (tron_addr) module.
-@ISA = qw(Exporter);
+our @ISA = qw(Exporter);
 
 # Exporting the implemented subroutines.
-@EXPORT = qw(to_hex_addr to_base58_addr 
-             chk_base58_addr chk_hex_addr);
+our @EXPORT = qw(to_hex_addr to_base58_addr 
+                 chk_base58_addr chk_hex_addr);
 
 # Load the Perl pragmas.
 use strict;
