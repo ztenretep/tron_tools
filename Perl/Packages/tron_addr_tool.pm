@@ -85,7 +85,11 @@ sub chk_base58_addr {
     if (("$chr_addr" eq "T") and ($len_addr == 34)) {
         # Try to convert the address from base58 to hex.
         try {
-            to_hex_addr($base58_addr); 
+            # Initialise the variable $hex_addr.
+            my $hex_addr = undef;
+            # Convert the base58 address to the hex address.
+            $hex_addr = decode_base58check($base58_addr);
+            $hex_addr = unpack("H*", $hex_addr);
         } catch {
             # Set variable to 0 (false).
             $is_base58_addr = 0;
@@ -114,7 +118,11 @@ sub chk_hex_addr {
     if (("$chrs_addr" eq "41") and ($len_addr == 42)) {
         # Try to convert the address from hex to base58.
         try {
-            to_base58_addr($hex_addr); 
+            # Initialise the variable $base58_addr.
+            my $base58_addr = undef;
+            # Convert the hex address to the base58 address.
+            $base58_addr = pack("H*", $hex_addr);
+            $base58_addr = encode_base58check($base58_addr);
         } catch {
             # Set variable to 0 (false).
             $is_hex_addr = 0;
