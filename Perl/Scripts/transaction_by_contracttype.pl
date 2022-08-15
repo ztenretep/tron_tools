@@ -1,13 +1,16 @@
-
 #!/usr/bin/perl -w
 #
-# The script reads the transactions related to transfers from the list of
-# the last 20 transactions. The API only allows the maximum possible query
-# of the last 20 transactions. 
+# The script reads the transactions related to transfers from the list of the
+# last 50 transactions. The API itself only allows the maximum possible query
+# of the last 50 transactions. 
 #
-# 1  -> TransferContract      (Transfer TRX)
-# 2  -> TransferAssetContract (Transdfer ASSET)
-# 4  -> VoteWitnessContract   (Vote TRX)
+# Change the TRON address <tron_address> in this script to your personal needs.
+# The contract type can be chosen via a command line argument. In addition start
+# and end date and time can be read from the command line arguments.
+# 
+# 1  -> TransferContract        (Transfer TRX)
+# 2  -> TransferAssetContract   (Transdfer ASSET)
+# 4  -> VoteWitnessContract     (Vote TRX)
 # 11 -> FreezeBalanceContract   (Freeze TRX)
 # 12 -> UnfreezeBalanceContract (Unfreeze TRX)
 # 13 -> WithdrawBalanceContract (Claim TRX Rewards) 
@@ -18,27 +21,32 @@
 # Load the base Perl pragmatic modules (pragmas) as compiler directive.
 use strict;
 use warnings;
+use diagnostics;
+use constant MILLISECONDS => 1000;
 
 # Load the required Perl modules or packages.
 use URI;
-use POSIX;
 use JSON::PP;
+use Time::Piece;
 use LWP::UserAgent;
 
 # Define the global variables.
-our($ADDRESS, $PAYLOAD, $HEADER, $API_URL, $JSON_PP);
+our(@NUMARR, $ADDRESS, $LIMIT, $ContractType, $PATTERN, $BASE_URL, $PATH_URL,
+    $PARAMS, $API_URL, $JSON_PP, $ALL, $DTS, $START, $END, $START_EPOCH,
+    $END_EPOCH);
 
 # Set the TRON account address.
 $ADDRESS = '<tron_address>';
 
 # Set the number of transactions.
-my $LIMIT = 20;
+$LIMIT = 50;
 
 # Initialise the contract type.
-my $ContractType = undef;
+$ContractType = undef;
 
 # Set the array with the allowed numbers.
-my @NUMARR = (0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13,
+#my @NUMARR = (0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13,
+@NUMARR = (0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13,
               14, 15, 16, 17, 18, 19, 20, 30, 31, 32, 33,
               41, 42, 43, 44, 45, 46, 48, 49, 51, 52, 53);
 
@@ -78,47 +86,21 @@ my @NUMARR = (0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13,
 # MarketSellAssetContract         = 52;
 # MarketCancelOrderContract       = 53;
 
-# =================
-# Subroutine prnmsg
-# =================
-sub help {
-    # Print allowed options into the terminal window. 
-    print "Please provide exactly one number (contract type) as command line argument:\n";
-    print "\x20\x201  -> TransferContract      (Transfer TRX)\n";
-    print "\x20\x202  -> TransferContract      (Transfer ASSET)\n";
-    print "\x20\x204  -> VoteWitnessContract   (Vote TRX)\n";
-    print "\x20\x2011 -> FreezeBalanceContract   (Freeze TRX)\n"; 
-    print "\x20\x2012 -> UnfreezeBalanceContract (Unfreeze TRX)\n";
-    print "\x20\x2013 -> WithdrawBalanceContract (Claim TRX Rewards)\n";
-    print "\x20\x20etc.\n";
-    print "Exiting program!\n";
-    # Exit script with error code 1.
-    exit 1;
-};
+# Initialise the variables.
+$ALL = 0;
+$DTS = 0;
+$START = undef;
+$END = undef;
+$START_EPOCH = undef;
+$END_EPOCH = undef;
 
-# Read the command line argument.
-if ($#ARGV != 0 ) {
-    # Print the help message.
-    help();
-} elsif ($ARGV[0] eq '--help') {
-    # Print the help message.
-    help();
-} else {
-    # Get a number from the command line argument.
-    ($ContractType) = @ARGV;
-    if ((grep {$_ eq $ContractType} @NUMARR) ne 1) {
-        # Print the help message.
-        help();
-    };
-};
+# Set the date and time format string.
+$PATTERN = "%Y-%m-%d %H:%M:%S";
 
 # Set the API URL.
-my $BASE_URL = "https://apilist.tronscan.org";
-my $PATH_URL = "/api/transaction";
-my $PARAMS = "?sort=-timestamp&count=true&limit=" . "$LIMIT" . "&start=0&address=" . "$ADDRESS";
-
-# Assemble the API URL. 
-$API_URL = $BASE_URL . $PATH_URL . $PARAMS;
+$BASE_URL = "https://apilist.tronscan.org";
+$PATH_URL = "/api/transaction";
+$PARAMS = "?sort=-timestamp&count=true&limit=" . "$LIMIT" . "&start=0" . "&address=" . "$ADDRESS";
 
 # Set up the options for the Perl module.
 $JSON_PP = 'JSON::PP'->new->pretty;
@@ -134,8 +116,36 @@ $SIG{INT} = sub {
 };
 
 # ===============
-# Function decode
+# Subroutine help
 # ===============
+sub help {
+    # Print allowed options into the terminal window. 
+    print "Please provide one argument or three arguments as command line arguments.\n\n";
+    print "Usage: perl $0 <arg0> <arg1> <arg2>\n\n";
+    print "<arg0> -> [--help, --all, <ContractType>]\n\n";
+    print "          --help         -> This help text\n";
+    print "          --all          -> All contract types\n";
+    print "          <ContractType> -> from list\n\n";
+    print "<arg1> -> Start date and time in milliseconds since epoch\n";
+    print "       -> Format = '%Y-%m-%d %H:%M:%S'\n\n";
+    print "<arg2> -> End date and time in milliseconds since epoch\n";
+    print "       -> Format = '%Y-%m-%d %H:%M:%S'\n";
+    print "\nPossible Contract Types:\n";
+    print "\x20\x201  -> TransferContract        (Transfer TRX)\n";
+    print "\x20\x202  -> TransferContract        (Transfer ASSET)\n";
+    print "\x20\x204  -> VoteWitnessContract     (Vote TRX)\n";
+    print "\x20\x2011 -> FreezeBalanceContract   (Freeze TRX)\n"; 
+    print "\x20\x2012 -> UnfreezeBalanceContract (Unfreeze TRX)\n";
+    print "\x20\x2013 -> WithdrawBalanceContract (Claim TRX Rewards)\n\n";
+    print "\x20\x20etc.\n\n";
+    print "Exiting program!\n";
+    # Exit script with error code 1.
+    exit 1;
+};
+
+# =================
+# Subroutine decode
+# =================
 sub decode {
     # Assign the argument to the local variable.
     my $content = $_[0];
@@ -145,32 +155,54 @@ sub decode {
     return $decoded;
 };
 
-# ===============
-# Function encode
-# ===============
+# =================
+# Subroutine encode
+# =================
 sub encode {
     # Assign the argument to the local variable.
     my $decoded = $_[0];
     # Set the keywords. 
     my $key0 = 'data'; 
     my $key1= 'contractType'; 
+    # Initialise status to 1.
+    my $status = 1;
     # Get the data from the content.
     my $data = $decoded->{$key0};
+    # Check if data is null.
+    if (!exists $decoded->{$key0}) { 
+        # Set status to 0.
+        $status = 0;
+    };
+    # Initialise the counter.
+    my $count = 0;
     # Loop over the array of hashes.
     for my $hash (@$data) {
         # Get the contract type.
         my $contract_type = $hash->{$key1};
         # Check the contract type.
-        if ($contract_type eq $ContractType) {
+        if ($ALL eq 1) {
             # Print result to screen.      
             print $JSON_PP->encode($hash);
+            # Increment the counter. 
+            $count += 1;
+        } else {
+            if ($contract_type eq $ContractType) {
+                # Print result to screen.      
+                print $JSON_PP->encode($hash);
+                # Increment the counter. 
+                $count += 1;
+           };
         };
     };
+    # Print data sets found into terminal window.
+    print "Data sets found: " . "$count" . "\n";
+    # Return status.
+    return $status;
 };
 
-# =================
-# Function response
-# =================
+# ===================
+# Subroutine response
+# ===================
 sub response {
     # Declare the variable.
     my $content = undef;
@@ -198,19 +230,69 @@ sub response {
     return $content;
 };
 
+# ====================
+# Subroutine eval_args
+# ====================
+sub eval_args {
+    # Get the number of arguments.
+    my $ARGS = $#ARGV + 1;
+    # Evaluate the command line arguments.
+    if ($ARGS eq 0) {
+        # Print the help message.
+        help();
+    } elsif ($ARGS ge 1) {
+        if ($ARGV[0] eq '--help') {
+            # Print the help message.
+            help();
+        } elsif ($ARGV[0] eq '--all') {
+            # Set the variable to 1.
+            $ALL = 1;
+        } else {
+            # Get a number from the command line argument.
+            $ContractType = $ARGV[0];
+            if ((grep {$_ eq $ContractType} @NUMARR) ne 1) {
+                # Print the help message.
+                help();
+            };
+        };
+        if ($ARGS eq 3) {
+            # Set switch for date and time difference.
+            $DTS = 1;
+            # Get start and end date and time.
+            $START = $ARGV[1];
+            $END = $ARGV[2];
+        };
+    }; 
+};
+
 # ###############
 # Main subroutine
 # ###############
 sub main {
+    # Evaluate the command line arguments.
+    eval_args(@ARGV);
+    # Modify the parameter list.
+    if ($DTS eq 1) {
+        # Get the date and time since epoch.
+        $START_EPOCH = ((Time::Piece->strptime($START, $PATTERN))->epoch) * MILLISECONDS;
+        $END_EPOCH = ((Time::Piece->strptime($END, $PATTERN))->epoch) * MILLISECONDS;
+        # Get the further API parameter.
+        $PARAMS = "$PARAMS" . "&start_timestamp=" . "$START_EPOCH" . "&end_timestamp=" . "$END_EPOCH";
+    };
+    # Assemble the API URL. 
+    $API_URL = $BASE_URL . $PATH_URL . $PARAMS;
     # Get the content.
     my $content = response();
     # Decode the content.
     my $decoded = decode($content);
     # Encode the decoded content.
-    encode($decoded);
+    if (!encode($decoded)) {
+        # Print message into the terminal window.
+        print $content;
+    };
 };
 
-# ++++++++++++++++++++++++
-# Call the subroutine main
-# ++++++++++++++++++++++++
+# ########################
+# Call the main subroutine
+# ########################
 main();
