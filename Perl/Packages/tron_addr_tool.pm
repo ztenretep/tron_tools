@@ -1,7 +1,13 @@
 package tron_addr_tool;
 # ##############################################################################
+# File name:
+# tron_addr_tool.pm
+# Package name:
+# tron_addr_tool
+# Base name or path corresponds to the package name. 
+# E.g. path Tron/AddrTool.pm -> package Tron::AddrTool
 # How to load the user defined package from within a Perl script:
-# use lib '<path_to_lib>';
+# use lib '<full_path_to_package>';
 # use tron_addr_tool;
 # ##############################################################################
 
