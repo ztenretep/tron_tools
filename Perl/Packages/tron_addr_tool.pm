@@ -12,8 +12,12 @@ use Exporter;
 our @ISA = qw(Exporter);
 
 # Exporting the implemented subroutines.
-our @EXPORT = qw(to_hex_addr to_base58_addr 
-                 chk_base58_addr chk_hex_addr);
+our @EXPORT = qw(
+    to_hex_addr
+    to_base58_addr
+    chk_hex_addr
+    chk_base58_addr
+);
 
 # Load the Perl pragmas.
 use strict;
