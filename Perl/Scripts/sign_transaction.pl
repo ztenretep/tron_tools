@@ -37,7 +37,7 @@ END_OF_PYTHON_CODE
 my $txID = '<transaction-hash>';
 
 # Set the private key.
-my $privKey = '<private-key>'
+my $privKey = '<private-key>';
 
 # Print signature into terminal window.
 print sign($txID, $privKey) . "\n"; 
